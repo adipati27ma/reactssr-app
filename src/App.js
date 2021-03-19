@@ -1,9 +1,11 @@
 import React from 'react';
+import { renderRoutes } from 'react-router-config';
 import { Route, Switch, NavLink } from 'react-router-dom';
-import Home from './Home';
-import Posts from './Posts';
-import Todos from './Todos';
-import NotFound from './NotFound';
+// import Home from './Home';
+// import Posts from './Posts';
+// import Todos from './Todos';
+// import NotFound from './NotFound';
+import Routes from './routes';
 
 export default (props) => {
   return (
@@ -18,17 +20,21 @@ export default (props) => {
         <li>
           <NavLink to="/posts">Posts</NavLink>
         </li>
+        <li>
+          <NavLink to="/lmao">Lmao</NavLink>
+        </li>
       </ul>
 
       <Switch>
-        <Route
+        {/* <Route
           exact
           path="/"
           render={(props) => <Home name="Alligator.io" {...props} />}
         />
         <Route path="/todos" component={Todos} />
         <Route path="/posts" component={Posts} />
-        <Route component={NotFound} />
+        <Route component={NotFound} /> */}
+        {renderRoutes(Routes)}
       </Switch>
     </div>
   );
