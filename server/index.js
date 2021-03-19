@@ -15,6 +15,10 @@ const app = express();
 
 app.use(express.static('./build'));
 
+app.get('/todos', (req, res) => {
+  res.send('this is todos APP');
+});
+
 app.get('/*', (req, res) => {
   const currentRoute = Routes.find((route) => matchPath(req.url, route)) || {};
   let promise;
@@ -35,7 +39,7 @@ app.get('/*', (req, res) => {
     );
 
     const indexFile = path.resolve('./build/index.html');
-    fs.readFile(indexFile, 'utf8', (err, data) => {
+    fs.readFile(indexFile, 'utf8', (err, indexData) => {
       if (err) {
         console.error('Something went wrong:', err);
         return res.status(500).send('Oops, better luck next time!');
@@ -50,7 +54,13 @@ app.get('/*', (req, res) => {
       }
 
       return res.send(
-        data.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
+        // data.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
+        indexData
+          .replace('<div id="root"></div>', `<div id="root">${app}</div>`)
+          .replace(
+            '</body>',
+            `<script>window.__ROUTE_DATA__ = ${serialize(data)}</script></body>`
+          )
       );
     });
   });

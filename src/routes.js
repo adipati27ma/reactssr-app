@@ -1,4 +1,3 @@
-import App from './App';
 import Home from './Home';
 import Posts from './Posts';
 import Todos from './Todos';
